@@ -27,6 +27,8 @@ src/
   content/
     posts/*.md             # Blog posts (Astro content collections)
   content.config.ts        # Content collection schema definition
+  lib/
+    posts.ts               # Post fetching helper — filters out future-dated posts
   layouts/
     BaseLayout.astro       # Root layout — header, nav, footer, global styles
     PostLayout.astro        # Wraps individual blog posts (extends BaseLayout)
@@ -53,7 +55,7 @@ date: "YYYY-MM-DD"
 ---
 ```
 
-The post automatically appears on the home page (if recent) and the blog listing page. No other files need editing.
+The post automatically appears on the home page (if recent) and the blog listing page. No other files need editing. To schedule a post for the future, set `date` to a future date — it will be excluded from the build until that date arrives.
 
 ### Styling
 
@@ -71,7 +73,7 @@ Posts use [Astro content collections](https://docs.astro.build/en/guides/content
 { title: z.string(), description: z.string().optional(), date: z.string() }
 ```
 
-Pages load posts via `getCollection("posts")` from `astro:content`. Individual posts are rendered by the dynamic route `src/pages/posts/[slug].astro`.
+Pages load posts via `getPublishedPosts()` from `src/lib/posts.ts`, which wraps `getCollection("posts")` and filters out posts with a future `date`. This enables scheduled posts — set a future date and the post won't appear until the site is rebuilt on or after that date.
 
 ### Obsidian workflow
 

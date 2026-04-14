@@ -1,8 +1,8 @@
 ---
-import { getCollection } from "astro:content";
+import { getPublishedPosts } from "../lib/posts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const posts = await getCollection("posts");
+const posts = await getPublishedPosts();
 
 const sortedPosts = posts.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()

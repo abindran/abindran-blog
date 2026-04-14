@@ -1,0 +1,43 @@
+name: Scheduled Post Deploy
+
+on:
+  schedule:
+    - cron: "0 5 * * *" # Daily at 5am UTC
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for posts scheduled today
+        id: check
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          if grep -rl "date: \"$TODAY\"" src/content/posts/; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.found == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: steps.check.outputs.found == 'true'
+
+      - run: npm run build
+        if: steps.check.outputs.found == 'true'
+
+      - uses: cloudflare/wrangler-action@v3
+        if: steps.check.outputs.found == 'true'
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/ --project-name=abindran-blog
