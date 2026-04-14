@@ -43,6 +43,7 @@ src/
     index.astro            — home page
     blog.astro             — blog listing
     posts/[slug].astro     — dynamic route for individual posts
+    og/[slug].png.ts       — auto-generated OG images per post
 public/
   favicon.svg
 sync.sh                    — sync posts from Obsidian vault

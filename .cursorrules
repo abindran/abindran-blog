@@ -16,12 +16,15 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - `src/pages/index.astro` — home page with recent posts
 - `src/pages/blog.astro` — full blog listing
 - `src/pages/posts/[slug].astro` — dynamic route for individual posts
+- `src/pages/og/[slug].png.ts` — auto-generated OG image endpoint (satori + @resvg/resvg-js)
 
 ## Key Patterns
 - Posts use Astro content collections; pages load posts via `getPublishedPosts()` from `src/lib/posts.ts` which filters out future-dated posts
 - Post frontmatter: `title`, `description`, `date` (YYYY-MM-DD)
 - CSS variables defined in `:root` in BaseLayout: `--text`, `--text-muted`, `--bg`, `--border`, `--accent`
 - Max content width: 640px, system font stack
+- OG images are auto-generated per post at `/og/{slug}.png` using satori + @resvg/resvg-js
+- BaseLayout includes Open Graph and Twitter Card meta tags
 
 ## Rules
 - Keep everything minimal — no unnecessary dependencies or features

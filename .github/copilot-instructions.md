@@ -10,6 +10,7 @@ This is a minimalistic Astro 6 personal blog. It ships zero JavaScript — stati
 - `src/pages/index.astro` — home page showing a hero section and the 3 most recent posts
 - `src/pages/blog.astro` — lists all posts sorted by date descending
 - `src/pages/posts/[slug].astro` — dynamic route rendering individual blog posts
+- `src/pages/og/[slug].png.ts` — auto-generated OG image endpoint (satori + @resvg/resvg-js, 1200×630 PNG)
 
 ## Content Model
 
@@ -21,6 +22,10 @@ date: "YYYY-MM-DD"
 ```
 
 Posts use Astro content collections. Pages load posts via `getPublishedPosts()` from `src/lib/posts.ts`, which wraps `getCollection("posts")` and filters out future-dated posts. Schema is defined in `src/content.config.ts`.
+
+## Open Graph
+
+Each post gets an auto-generated OG image at `/og/{slug}.png`. BaseLayout includes Open Graph and Twitter Card meta tags. PostLayout passes the OG image path automatically. Images are 1200×630 PNGs rendered with satori (Inter font) and @resvg/resvg-js.
 
 ## Styling
 
