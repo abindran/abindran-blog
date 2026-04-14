@@ -44,6 +44,7 @@ src/
     blog.astro             — blog listing
     posts/[slug].astro     — dynamic route for individual posts
     og/[slug].png.ts       — auto-generated OG images per post
+    rss.xml.ts             — RSS feed endpoint
 public/
   favicon.svg
 sync.sh                    — sync posts from Obsidian vault

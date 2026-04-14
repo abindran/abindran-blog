@@ -4,9 +4,10 @@ interface Props {
   description?: string;
   image?: string;
   type?: "website" | "article";
+  date?: string;
 }
 
-const { title, description = "A personal blog", image, type = "website" } = Astro.props;
+const { title, description = "A personal blog", image, type = "website", date } = Astro.props;
 const currentPath = Astro.url.pathname;
 const canonicalURL = new URL(currentPath, Astro.site);
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
@@ -27,12 +28,30 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    {type === "article" && date && <meta property="article:published_time" content={new Date(date).toISOString()} />}
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    {type === "article" && date && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": title,
+        "description": description,
+        "datePublished": new Date(date).toISOString(),
+        "url": canonicalURL,
+        ...(ogImage ? { "image": ogImage } : {}),
+        "author": {
+          "@type": "Person",
+          "name": "Abindran",
+          "url": "https://abindran.com"
+        }
+      })} />
+    )}
 
     <title>{title}</title>
   </head>

@@ -11,6 +11,7 @@ This is a minimalistic Astro 6 personal blog. It ships zero JavaScript — stati
 - `src/pages/blog.astro` — lists all posts sorted by date descending
 - `src/pages/posts/[slug].astro` — dynamic route rendering individual blog posts
 - `src/pages/og/[slug].png.ts` — auto-generated OG image endpoint (satori + @resvg/resvg-js, 1200×630 PNG)
+- `src/pages/rss.xml.ts` — RSS feed endpoint via @astrojs/rss
 
 ## Content Model
 
@@ -26,6 +27,10 @@ Posts use Astro content collections. Pages load posts via `getPublishedPosts()` 
 ## Open Graph
 
 Each post gets an auto-generated OG image at `/og/{slug}.png`. BaseLayout includes Open Graph and Twitter Card meta tags. PostLayout passes the OG image path automatically. Images are 1200×630 PNGs rendered with satori (Inter font) and @resvg/resvg-js.
+
+## RSS
+
+An RSS feed is generated at `/rss.xml` using `@astrojs/rss`. BaseLayout includes an RSS autodiscovery `<link>` tag.
 
 ## Styling
 

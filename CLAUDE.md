@@ -9,6 +9,7 @@ Minimalistic personal blog built with Astro. Static-only, zero JavaScript shippe
 - **CSS** — custom styles with CSS variables, no framework
 - **Markdown** — blog posts written in `.md` with YAML frontmatter
 - **satori + @resvg/resvg-js** — auto-generated Open Graph images at build time
+- **@astrojs/rss** — RSS feed generation
 - **Cloudflare Pages** — deployment target (project name: `abindran-blog`)
 
 ## Commands
@@ -38,6 +39,7 @@ src/
     blog.astro             # Blog listing — all posts sorted by date desc
     posts/[slug].astro     # Dynamic route — renders individual blog posts
     og/[slug].png.ts       # OG image endpoint — generates PNG per post at build time
+    rss.xml.ts             # RSS feed endpoint — generates feed via @astrojs/rss
 public/
   favicon.svg              # Simple serif "A" favicon
 .github/
@@ -103,6 +105,10 @@ Both workflows run `npm ci && npm run build` then deploy to Cloudflare Pages via
 ### Open Graph images
 
 Each blog post gets an auto-generated OG image at `/og/{slug}.png`. The endpoint (`src/pages/og/[slug].png.ts`) uses `satori` to render an HTML-like layout to SVG, then `@resvg/resvg-js` to convert it to a 1200×630 PNG. Fonts are fetched from Google Fonts (Inter). `BaseLayout.astro` includes Open Graph and Twitter Card meta tags; `PostLayout.astro` passes the OG image path automatically.
+
+### RSS feed
+
+An RSS feed is available at `/rss.xml`. The endpoint (`src/pages/rss.xml.ts`) uses `@astrojs/rss` to generate a feed of all published posts. `BaseLayout.astro` includes an RSS autodiscovery `<link>` in the `<head>`.
 
 ### Design philosophy
 

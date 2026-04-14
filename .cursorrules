@@ -17,6 +17,7 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - `src/pages/blog.astro` — full blog listing
 - `src/pages/posts/[slug].astro` — dynamic route for individual posts
 - `src/pages/og/[slug].png.ts` — auto-generated OG image endpoint (satori + @resvg/resvg-js)
+- `src/pages/rss.xml.ts` — RSS feed endpoint (@astrojs/rss)
 
 ## Key Patterns
 - Posts use Astro content collections; pages load posts via `getPublishedPosts()` from `src/lib/posts.ts` which filters out future-dated posts
@@ -24,6 +25,7 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - CSS variables defined in `:root` in BaseLayout: `--text`, `--text-muted`, `--bg`, `--border`, `--accent`
 - Max content width: 640px, system font stack
 - OG images are auto-generated per post at `/og/{slug}.png` using satori + @resvg/resvg-js
+- RSS feed at `/rss.xml` generated via @astrojs/rss; BaseLayout includes RSS autodiscovery link
 - BaseLayout includes Open Graph and Twitter Card meta tags
 
 ## Rules

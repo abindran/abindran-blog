@@ -10,7 +10,7 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
 const ogImage = `/og/${slug}.png`;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description} image={ogImage} type="article">
+<BaseLayout title={frontmatter.title} description={frontmatter.description} image={ogImage} type="article" date={frontmatter.date}>
   <article>
     <header class="post-header">
       <time datetime={frontmatter.date}>{formattedDate}</time>
