@@ -1,15 +1,16 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
   day: "numeric",
 });
+const ogImage = `/og/${slug}.png`;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+<BaseLayout title={frontmatter.title} description={frontmatter.description} image={ogImage} type="article">
   <article>
     <header class="post-header">
       <time datetime={frontmatter.date}>{formattedDate}</time>
