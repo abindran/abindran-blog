@@ -1,0 +1,134 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Post {
+  url: string;
+  frontmatter: {
+    title: string;
+    description?: string;
+    date: string;
+  };
+}
+
+const posts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true })
+) as Post[];
+
+const recentPosts = posts
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout title="abindran" description="Personal blog and thoughts">
+  <section class="hero">
+    <h1>Hey, I'm <strong>Abindran</strong></h1>
+    <p>
+      Welcome to my corner of the internet. I write about things I'm learning,
+      building, and thinking about.
+    </p>
+  </section>
+
+  {recentPosts.length > 0 && (
+    <section class="recent">
+      <h2>Recent posts</h2>
+      <ul>
+        {recentPosts.map((post) => (
+          <li>
+            <a href={post.url}>
+              <span class="post-title">{post.frontmatter.title}</span>
+              <time datetime={post.frontmatter.date}>
+                {new Date(post.frontmatter.date).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/blog" class="view-all">View all posts &rarr;</a>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 3.5rem;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 strong {
+    font-weight: 800;
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .recent h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .recent ul {
+    list-style: none;
+  }
+
+  .recent li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .recent li:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .recent li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0;
+    color: var(--text);
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .recent li a:hover {
+    opacity: 0.6;
+    text-decoration: none;
+  }
+
+  .post-title {
+    font-weight: 500;
+  }
+
+  time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .view-all {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .view-all:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+</style>

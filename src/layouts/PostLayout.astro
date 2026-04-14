@@ -1,0 +1,101 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { frontmatter } = Astro.props;
+const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <article>
+    <header class="post-header">
+      <time datetime={frontmatter.date}>{formattedDate}</time>
+      <h1>{frontmatter.title}</h1>
+      {frontmatter.description && <p class="description">{frontmatter.description}</p>}
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog">&larr; Back to all posts</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .post-header time {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .post-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+    color: var(--text);
+  }
+
+  .description {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .prose {
+    font-size: 1.05rem;
+  }
+
+  .prose :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.25rem;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .post-footer a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .post-footer a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+</style>

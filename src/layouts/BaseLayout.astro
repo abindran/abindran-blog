@@ -1,0 +1,190 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "A personal blog" } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="/" class="site-title">abindran</a>
+        <nav>
+          <a href="/" class:list={[{ active: currentPath === "/" }]}>Home</a>
+          <a href="/blog" class:list={[{ active: currentPath.startsWith("/blog") }]}>Blog</a>
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer>
+        <p>&copy; {new Date().getFullYear()} abindran</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --text: #1a1a1a;
+    --text-muted: #666;
+    --bg: #fdfdfd;
+    --border: #e5e5e5;
+    --accent: #2563eb;
+    --max-width: 640px;
+  }
+
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4 {
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  code {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background: #f3f4f6;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+
+  pre {
+    background: #f3f4f6;
+    padding: 1.25rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    color: var(--text-muted);
+    margin: 1.5rem 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+</style>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .site-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .site-title:hover {
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  nav a.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>

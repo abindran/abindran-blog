@@ -1,0 +1,28 @@
+You are working on a minimalistic Astro 6 personal blog. The site is static-only — no JavaScript is shipped to the browser.
+
+## Tech Stack
+- Astro 6 with file-based routing
+- TypeScript (strict mode)
+- Custom CSS with CSS variables (no framework)
+- Markdown for blog posts with YAML frontmatter
+- Deployed to Cloudflare Pages
+
+## Project Layout
+- `src/layouts/BaseLayout.astro` — root layout with nav, footer, and global styles
+- `src/layouts/PostLayout.astro` — blog post layout (extends BaseLayout)
+- `src/pages/index.astro` — home page with recent posts
+- `src/pages/blog.astro` — full blog listing
+- `src/pages/posts/*.md` — blog posts, each file is a route
+
+## Key Patterns
+- Posts are loaded with `import.meta.glob("./posts/*.md", { eager: true })`
+- Post frontmatter: `layout`, `title`, `description`, `date` (YYYY-MM-DD)
+- CSS variables defined in `:root` in BaseLayout: `--text`, `--text-muted`, `--bg`, `--border`, `--accent`
+- Max content width: 640px, system font stack
+
+## Rules
+- Keep everything minimal — no unnecessary dependencies or features
+- Do not add JavaScript to the client bundle
+- Use scoped `<style>` in Astro components; global styles only in BaseLayout
+- When creating posts, place them in `src/pages/posts/` with the required frontmatter
+- Prefer editing existing files over creating new ones

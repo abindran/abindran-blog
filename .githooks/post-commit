@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# post-commit hook: auto-update AI context files after commits
+# that change source files.
+#
+# Install: git config core.hooksPath .githooks
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+"$REPO_ROOT/scripts/update-context.sh" &
