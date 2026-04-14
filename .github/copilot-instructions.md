@@ -4,21 +4,22 @@ This is a minimalistic Astro 6 personal blog. It ships zero JavaScript — stati
 
 - `src/layouts/BaseLayout.astro` — root layout with header navigation (Home, Blog), footer, and all global styles via CSS variables
 - `src/layouts/PostLayout.astro` — blog post layout extending BaseLayout; renders title, date, description, content, and back-link
+- `src/content/posts/*.md` — blog posts managed via Astro content collections
+- `src/content.config.ts` — content collection schema definition
 - `src/pages/index.astro` — home page showing a hero section and the 3 most recent posts
 - `src/pages/blog.astro` — lists all posts sorted by date descending
-- `src/pages/posts/*.md` — each Markdown file is a blog post with file-based routing
+- `src/pages/posts/[slug].astro` — dynamic route rendering individual blog posts
 
 ## Content Model
 
 Blog posts use YAML frontmatter:
 ```yaml
-layout: "../../layouts/PostLayout.astro"
 title: "Post Title"
 description: "Optional summary"
 date: "YYYY-MM-DD"
 ```
 
-Posts are fetched in pages via `import.meta.glob("./posts/*.md", { eager: true })`.
+Posts use Astro content collections, loaded via `getCollection("posts")` from `astro:content`. Schema is defined in `src/content.config.ts`.
 
 ## Styling
 
@@ -29,5 +30,5 @@ CSS variables in BaseLayout `:root`: `--text` (#1a1a1a), `--text-muted` (#666), 
 - Do not add client-side JavaScript
 - Do not add CSS frameworks or external fonts
 - Use scoped styles in Astro components
-- Place new posts in `src/pages/posts/` with required frontmatter
+- Place new posts in `src/content/posts/` with required frontmatter
 - Keep the design minimal and content-focused

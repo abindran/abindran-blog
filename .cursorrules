@@ -8,15 +8,17 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - Deployed to Cloudflare Pages
 
 ## Project Layout
+- `src/content/posts/*.md` — blog posts (Astro content collections)
+- `src/content.config.ts` — content collection schema definition
 - `src/layouts/BaseLayout.astro` — root layout with nav, footer, and global styles
 - `src/layouts/PostLayout.astro` — blog post layout (extends BaseLayout)
 - `src/pages/index.astro` — home page with recent posts
 - `src/pages/blog.astro` — full blog listing
-- `src/pages/posts/*.md` — blog posts, each file is a route
+- `src/pages/posts/[slug].astro` — dynamic route for individual posts
 
 ## Key Patterns
-- Posts are loaded with `import.meta.glob("./posts/*.md", { eager: true })`
-- Post frontmatter: `layout`, `title`, `description`, `date` (YYYY-MM-DD)
+- Posts use Astro content collections, loaded with `getCollection("posts")` from `astro:content`
+- Post frontmatter: `title`, `description`, `date` (YYYY-MM-DD)
 - CSS variables defined in `:root` in BaseLayout: `--text`, `--text-muted`, `--bg`, `--border`, `--accent`
 - Max content width: 640px, system font stack
 
@@ -24,5 +26,5 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - Keep everything minimal — no unnecessary dependencies or features
 - Do not add JavaScript to the client bundle
 - Use scoped `<style>` in Astro components; global styles only in BaseLayout
-- When creating posts, place them in `src/pages/posts/` with the required frontmatter
+- When creating posts, place them in `src/content/posts/` with the required frontmatter
 - Prefer editing existing files over creating new ones

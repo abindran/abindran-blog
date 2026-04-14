@@ -13,11 +13,10 @@ Open [localhost:4321](http://localhost:4321).
 
 ## Writing a Post
 
-Create a Markdown file in `src/pages/posts/`:
+Create a Markdown file in `src/content/posts/`:
 
 ```markdown
 ---
-layout: "../../layouts/PostLayout.astro"
 title: "Your Post Title"
 description: "A brief summary"
 date: "2026-04-14"
@@ -32,13 +31,16 @@ It will appear automatically on the home page and blog listing.
 
 ```
 src/
+  content/
+    posts/*.md             — blog posts (content collections)
+  content.config.ts        — content collection schema
   layouts/
     BaseLayout.astro       — shared layout (nav, footer, global styles)
     PostLayout.astro       — blog post wrapper
   pages/
     index.astro            — home page
     blog.astro             — blog listing
-    posts/*.md             — blog posts (file-based routing)
+    posts/[slug].astro     — dynamic route for individual posts
 public/
   favicon.svg
 ```
