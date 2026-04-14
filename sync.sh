@@ -10,6 +10,6 @@ if [ ! -d "$OBSIDIAN_DIR" ]; then
   exit 1
 fi
 
-rsync -av --delete --include="*.md" --exclude="*" "$OBSIDIAN_DIR/" "$CONTENT_DIR/"
+rsync -av --delete --exclude="Templates/" --include="*.md" --exclude="*" "$OBSIDIAN_DIR/" "$CONTENT_DIR/"
 
 echo "Synced posts from Obsidian to $CONTENT_DIR"
