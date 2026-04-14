@@ -6,6 +6,7 @@ This is a minimalistic Astro 6 personal blog. It ships zero JavaScript — stati
 - `src/layouts/PostLayout.astro` — blog post layout extending BaseLayout; renders title, date, description, content, and back-link
 - `src/content/posts/*.md` — blog posts managed via Astro content collections
 - `src/content.config.ts` — content collection schema definition
+- `src/lib/posts.ts` — post fetching helper; filters out future-dated posts for scheduled publishing
 - `src/pages/index.astro` — home page showing a hero section and the 3 most recent posts
 - `src/pages/blog.astro` — lists all posts sorted by date descending
 - `src/pages/posts/[slug].astro` — dynamic route rendering individual blog posts
@@ -19,7 +20,7 @@ description: "Optional summary"
 date: "YYYY-MM-DD"
 ```
 
-Posts use Astro content collections, loaded via `getCollection("posts")` from `astro:content`. Schema is defined in `src/content.config.ts`.
+Posts use Astro content collections. Pages load posts via `getPublishedPosts()` from `src/lib/posts.ts`, which wraps `getCollection("posts")` and filters out future-dated posts. Schema is defined in `src/content.config.ts`.
 
 ## Styling
 

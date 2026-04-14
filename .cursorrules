@@ -10,6 +10,7 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 ## Project Layout
 - `src/content/posts/*.md` — blog posts (Astro content collections)
 - `src/content.config.ts` — content collection schema definition
+- `src/lib/posts.ts` — post fetching helper, filters out future-dated posts
 - `src/layouts/BaseLayout.astro` — root layout with nav, footer, and global styles
 - `src/layouts/PostLayout.astro` — blog post layout (extends BaseLayout)
 - `src/pages/index.astro` — home page with recent posts
@@ -17,7 +18,7 @@ You are working on a minimalistic Astro 6 personal blog. The site is static-only
 - `src/pages/posts/[slug].astro` — dynamic route for individual posts
 
 ## Key Patterns
-- Posts use Astro content collections, loaded with `getCollection("posts")` from `astro:content`
+- Posts use Astro content collections; pages load posts via `getPublishedPosts()` from `src/lib/posts.ts` which filters out future-dated posts
 - Post frontmatter: `title`, `description`, `date` (YYYY-MM-DD)
 - CSS variables defined in `:root` in BaseLayout: `--text`, `--text-muted`, `--bg`, `--border`, `--accent`
 - Max content width: 640px, system font stack

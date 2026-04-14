@@ -34,6 +34,8 @@ src/
   content/
     posts/*.md             — blog posts (content collections)
   content.config.ts        — content collection schema
+  lib/
+    posts.ts               — post fetching helper (filters future-dated posts)
   layouts/
     BaseLayout.astro       — shared layout (nav, footer, global styles)
     PostLayout.astro       — blog post wrapper
@@ -43,6 +45,7 @@ src/
     posts/[slug].astro     — dynamic route for individual posts
 public/
   favicon.svg
+sync.sh                    — sync posts from Obsidian vault
 ```
 
 ## Deployment
