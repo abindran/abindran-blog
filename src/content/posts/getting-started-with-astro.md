@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/PostLayout.astro"
 title: "Getting Started with Astro"
 description: "Why I chose Astro for my personal blog and what makes it great for content-focused sites."
 date: "2026-04-10"

@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/PostLayout.astro"
 title: "Git Commands I Actually Use"
 description: "A short reference of the git commands that come up most often in my daily workflow."
 date: "2026-04-07"

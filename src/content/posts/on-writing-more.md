@@ -1,5 +1,4 @@
 ---
-layout: "../../layouts/PostLayout.astro"
 title: "On Writing More"
 description: "Some thoughts on why I want to write regularly and what I hope to get out of it."
 date: "2026-04-14"
