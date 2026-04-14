@@ -75,6 +75,7 @@ export const GET: APIRoute = async ({ props }) => {
                     style: {
                       display: "flex",
                       alignItems: "center",
+                      justifyContent: "space-between",
                       marginTop: "24px",
                       paddingTop: "24px",
                       borderTop: "2px solid #e5e5e5",
@@ -90,6 +91,20 @@ export const GET: APIRoute = async ({ props }) => {
                             letterSpacing: "-0.02em",
                           },
                           children: "abindran.com",
+                        },
+                      },
+                      {
+                        type: "div",
+                        props: {
+                          style: {
+                            fontSize: "22px",
+                            fontWeight: 700,
+                            color: "#ffffff",
+                            backgroundColor: "#2563eb",
+                            padding: "10px 28px",
+                            borderRadius: "8px",
+                          },
+                          children: "Read more \u2192",
                         },
                       },
                     ],
