@@ -19,6 +19,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="abindran" href="/rss.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
