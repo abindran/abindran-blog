@@ -47,6 +47,9 @@ src/
     rss.xml.ts             — RSS feed endpoint
 public/
   favicon.svg
+  robots.txt               — crawl rules + sitemap reference
+scripts/
+  update-context.sh        — auto-updates AI context files after source changes
 sync.sh                    — sync posts from Obsidian vault
 ```
 

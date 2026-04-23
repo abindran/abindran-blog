@@ -10,6 +10,7 @@ Minimalistic personal blog built with Astro. Static-only, zero JavaScript shippe
 - **Markdown** — blog posts written in `.md` with YAML frontmatter
 - **satori + @resvg/resvg-js** — auto-generated Open Graph images at build time
 - **@astrojs/rss** — RSS feed generation
+- **@astrojs/sitemap** — automatic sitemap generation
 - **Cloudflare Pages** — deployment target (project name: `abindran-blog`)
 
 ## Commands
@@ -42,12 +43,15 @@ src/
     rss.xml.ts             # RSS feed endpoint — generates feed via @astrojs/rss
 public/
   favicon.svg              # Simple serif "A" favicon
+  robots.txt               # Crawl rules + sitemap reference
 .github/
   workflows/
     deploy.yml             # Manual deploy via workflow_dispatch
     scheduled-deploy.yml   # Daily cron — deploys if a post is scheduled for today
 scripts/
   update-context.sh        # Auto-updates AI context files after source changes
+.githooks/
+  post-commit              # Git hook — triggers context file updates on commit
 sync.sh                    # Script to sync posts from Obsidian vault to repo
 ```
 
@@ -109,6 +113,12 @@ Each blog post gets an auto-generated OG image at `/og/{slug}.png`. The endpoint
 ### RSS feed
 
 An RSS feed is available at `/rss.xml`. The endpoint (`src/pages/rss.xml.ts`) uses `@astrojs/rss` to generate a feed of all published posts. `BaseLayout.astro` includes an RSS autodiscovery `<link>` in the `<head>`.
+
+### SEO
+
+- **Sitemap** — `@astrojs/sitemap` integration auto-generates `/sitemap-index.xml` and `/sitemap-0.xml` at build time. Configured in `astro.config.mjs` with `site: 'https://abindran.com'`.
+- **robots.txt** — `public/robots.txt` allows all crawlers and points to the sitemap URL.
+- **JSON-LD** — `BaseLayout.astro` emits Schema.org `BlogPosting` structured data for article pages (includes author, datePublished, headline, description, image).
 
 ### Design philosophy
 

@@ -32,6 +32,10 @@ Each post gets an auto-generated OG image at `/og/{slug}.png`. BaseLayout includ
 
 An RSS feed is generated at `/rss.xml` using `@astrojs/rss`. BaseLayout includes an RSS autodiscovery `<link>` tag.
 
+## SEO
+
+Sitemap is auto-generated via `@astrojs/sitemap` (configured in `astro.config.mjs` with `site: 'https://abindran.com'`). `public/robots.txt` allows all crawlers and references the sitemap. BaseLayout emits Schema.org JSON-LD structured data (`BlogPosting`) for article pages.
+
 ## Styling
 
 CSS variables in BaseLayout `:root`: `--text` (#1a1a1a), `--text-muted` (#666), `--bg` (#fdfdfd), `--border` (#e5e5e5), `--accent` (#2563eb). Max width: 640px. System font stack. Scoped styles per component.
